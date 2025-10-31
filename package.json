@@ -1,5 +1,8 @@
 {
+  "name": "diagnostic",
+  "type": "module",
+  "private": true,
   "dependencies": {
-    "nodemailer": "^6.9.7"
+    "nodemailer": "^6.9.0"
   }
 }
