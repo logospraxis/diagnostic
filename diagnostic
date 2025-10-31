@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Minute Conflict Pair Diagnostic | Logos & Praxis</title>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QEWYMTSMJQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QEWYMTSMJQ');
+  </script>
+  
+  <meta name="theme-color" content="#0B0B0C">
+  <meta name="description" content="Discover your constraint pattern in 3 minutes. Take the free conflict pair diagnostic.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #0B0B0C;
+      --ink: #E5E7EB;
+      --muted: #9CA3AF;
+      --stroke: rgba(229, 231, 235, 0.28);
+      --accent: #2563EB;
+      --space-8: 8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-48: 48px;
+      --space-64: 64px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--space-48) var(--space-24);
+    }
+
+    /* Logo */
+    .logo-glyph {
+      width: 80px;
+      height: auto;
+      margin: 0 auto var(--space-32) auto;
+      display: block;
+      opacity: 0.9;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: var(--space-64);
+    }
+
+    .header h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-16);
+    }
+
+    .header p {
+      font-size: clamp(16px, 3vw, 18px);
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-bottom: var(--space-48);
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: var(--stroke);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: var(--space-12);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Question Section */
+    .question-section {
+      display: none;
+    }
+
+    .question-section.active {
+      display: block;
+    }
+
+    .question-title {
+      font-size: clamp(20px, 4vw, 28px);
+      font-weight: 600;
+      margin-bottom: var(--space-24);
+      color: var(--ink);
+    }
+
+    .question-subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: var(--space-32);
+      line-height: 1.6;
+    }
+
+    /* Options */
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+
+    .option-card {
+      padding: var(--space-16) var(--space-24);
+      background: rgba(229, 231, 235, 0.03);
+      border: 2px solid var(--stroke);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 16px;
+      color: var(--ink);
+      text-align: left;
+    }
+
+    .option-card:hover {
+      background: rgba(229, 231, 235, 0.05);
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .option-card.selected {
+      background: rgba(37, 99, 235, 0.1);
+      border-color: var(--accent);
+    }
+
+    /* Result Section */
+    .result-section {
+      display: none;
+    }
+
+    .result-section.active {
+      display: block;
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: var(--space-48);
+    }
+
+    .result-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: var(--space-16);
+      line-height: 1.2;
+    }
+
+    .result-subtitle {
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .result-block {
+      background: rgba(229, 231, 235, 0.03);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: var(--space-32);
+      margin-bottom: var(--space-24);
+    }
+
+    .result-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-12);
+    }
+
+    .result-content {
+      font-size: 17px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .result-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .result-highlight {
+      background: rgba(37, 99, 235, 0.05);
+      border-left: 4px solid var(--accent);
+      padding: var(--space-24);
+      border-radius: 8px;
+      margin: var(--space-32) 0;
+    }
+
+    .result-highlight p {
+      font-size: 18px;
+      color: var(--ink);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* CTA */
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-12);
+      background: var(--accent);
+      color: white;
+      padding: 18px 36px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-top: var(--space-32);
+    }
+
+    .cta-pill:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--stroke);
+      margin-top: var(--space-16);
+    }
+
+    .cta-secondary:hover {
+      background: rgba(229, 231, 235, 0.05);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Email Capture */
+    .email-capture {
+      margin: var(--space-48) 0;
+      padding: var(--space-32);
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+    }
+
+    .email-capture h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: var(--space-16);
+      color: var(--ink);
+    }
+
+    .email-capture p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: var(--space-24);
+      line-height: 1.6;
+    }
+
+    .email-form {
+      display: flex;
+      gap: var(--space-12);
+    }
+
+    .email-form input[type="email"] {
+      flex: 1;
+      background: rgba(229, 231, 235, 0.03);
+      border: 1px solid var(--stroke);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: var(--ink);
+      transition: all 0.2s ease;
+    }
+
+    .email-form input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(229, 231, 235, 0.05);
+    }
+
+    .email-form button {
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .email-form button:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+
+    .email-success {
+      display: none;
+      color: #10b981;
+      font-size: 14px;
+      margin-top: var(--space-12);
+    }
+
+    .email-success.show {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .email-form {
+        flex-direction: column;
+      }
+
+      .email-form button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/assets/logospraxis-glyph.png" alt="Logos & Praxis" class="logo-glyph">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>3-Minute Conflict Pair Diagnostic</h1>
+      <p>Discover your constraint pattern. Free. Instant results.</p>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text" id="progressText">Question 1 of 3</div>
+    </div>
+
+    <!-- QUESTION 1: Physical Alarm -->
+    <div class="question-section active" id="question1">
+      <h2 class="question-title">What physical signal do you notice when work feels "off"?</h2>
+      <p class="question-subtitle">This is your alarm. Your body knows before your mind does.</p>
+      
+      <div class="options-container">
+        <div class="option-card" data-q="q1" data-value="jaw">
+          Jaw clenches
+        </div>
+        <div class="option-card" data-q="q1" data-value="breathing">
+          Breathing shallows
+        </div>
+        <div class="option-card" data-q="q1" data-value="chest">
+          Chest tightens
+        </div>
+        <div class="option-card" data-q="q1" data-value="time">
+          Time distorts
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTION 2: Triggering Activity -->
+    <div class="question-section" id="question2">
+      <h2 class="question-title">What were you doing right before that signal fired?</h2>
+      <p class="question-subtitle">The activity that triggers the alarm reveals what you're optimizing for.</p>
+      
+      <div class="options-container">
+        <div class="option-card" data-q="q2" data-value="messages">
+          Responding to messages/Slack
+        </div>
+        <div class="option-card" data-q="q2" data-value="meetings">
+          In a meeting or on a call
+        </div>
+        <div class="option-card" data-q="q2" data-value="reviewing">
+          Reviewing or approving work
+        </div>
+        <div class="option-card" data-q="q2" data-value="planning">
+          Planning or strategizing
+        </div>
+        <div class="option-card" data-q="q2" data-value="switching">
+          Context-switching between tasks
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTION 3: Deferred Work -->
+    <div class="question-section" id="question3">
+      <h2 class="question-title">What work did you defer to do that?</h2>
+      <p class="question-subtitle">The work you postpone reveals what your system neglects.</p>
+      
+      <div class="options-container">
+        <div class="option-card" data-q="q3" data-value="deep_work">
+          Deep work / focused execution
+        </div>
+        <div class="option-card" data-q="q3" data-value="decisions">
+          Decision-making / killing options
+        </div>
+        <div class="option-card" data-q="q3" data-value="strategy">
+          Strategy / big-picture thinking
+        </div>
+        <div class="option-card" data-q="q3" data-value="learning">
+          Learning / skill-building
+        </div>
+        <div class="option-card" data-q="q3" data-value="shipping">
+          Shipping / finishing things
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT SECTION -->
+    <div class="result-section" id="resultSection">
+      <div class="result-header">
+        <h2 class="result-title" id="resultPairTitle">VISIBILITY vs OWNERSHIP</h2>
+        <p class="result-subtitle">Your Conflict Pair</p>
+      </div>
+
+      <div class="result-block">
+        <div class="result-label">Your Alarm Pattern</div>
+        <div class="result-content" id="resultPattern"></div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-label">Performed Self</div>
+        <div class="result-content" id="resultPerformed"></div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-label">Neglected Self</div>
+        <div class="result-content" id="resultNeglected"></div>
+      </div>
+
+      <div class="result-highlight">
+        <p><strong>Your system is designed to favor <span id="resultFavor"></span>.</strong> That's why the alarm keeps firing. No amount of discipline fixes architectural problems.</p>
+      </div>
+
+      <!-- EMAIL CAPTURE -->
+      <div class="email-capture">
+        <h3>Want the full breakdown?</h3>
+        <p>Get your conflict pair analysis + next steps via email.</p>
+        <form class="email-form" id="emailForm">
+          <input type="email" id="emailInput" placeholder="you@company.com" required>
+          <button type="submit">Send Results</button>
+        </form>
+        <div class="email-success" id="emailSuccess">✓ Check your email for the full analysis.</div>
+      </div>
+
+      <!-- CTAs -->
+      <a href="/system-map" class="cta-pill">
+        Get the 8-Week System →
+      </a>
+      
+      <button class="cta-pill cta-secondary" id="restartBtn">
+        Take Diagnostic Again
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // State
+    const answers = {
+      q1: null,
+      q2: null,
+      q3: null
+    };
+
+    let currentQuestion = 1;
+
+    // Conflict Pair Logic
+    const conflictPairs = {
+      // VISIBILITY vs OWNERSHIP
+      'messages-deep_work': {
+        pair: 'VISIBILITY vs OWNERSHIP',
+        pattern: 'Responded to Slack/messages → deferred deep work',
+        performed: 'You're optimizing for <strong>being seen</strong> (always responsive, always available)',
+        neglected: 'You're deferring <strong>what builds value</strong> (focused execution, uninterrupted build time)',
+        favor: 'visibility over ownership'
+      },
+      'messages-shipping': {
+        pair: 'VISIBILITY vs OWNERSHIP',
+        pattern: 'Responded to Slack/messages → deferred shipping work',
+        performed: 'You're optimizing for <strong>being seen</strong> (performing responsiveness)',
+        neglected: 'You're deferring <strong>finishing things</strong> (shipping, closing loops)',
+        favor: 'visibility over ownership'
+      },
+      'switching-deep_work': {
+        pair: 'RESPONSIVENESS vs FOCUS',
+        pattern: 'Context-switched between tasks → deferred deep work',
+        performed: 'You're optimizing for <strong>keeping all options warm</strong> (reactive availability)',
+        neglected: 'You're deferring <strong>sustained focus</strong> (deep work, uninterrupted execution)',
+        favor: 'responsiveness over focus'
+      },
+      'switching-shipping': {
+        pair: 'RESPONSIVENESS vs FOCUS',
+        pattern: 'Context-switched between tasks → deferred shipping',
+        performed: 'You're optimizing for <strong>being responsive</strong> (always juggling)',
+        neglected: 'You're deferring <strong>closing loops</strong> (shipping, finishing)',
+        favor: 'responsiveness over focus'
+      },
+      // AVAILABILITY vs AUTHORITY
+      'meetings-decisions': {
+        pair: 'AVAILABILITY vs AUTHORITY',
+        pattern: 'Attended meeting/call → deferred decision-making',
+        performed: 'You're optimizing for <strong>being available</strong> (present in every conversation)',
+        neglected: 'You're deferring <strong>making calls</strong> (killing options, enforcing direction)',
+        favor: 'availability over authority'
+      },
+      'meetings-strategy': {
+        pair: 'AVAILABILITY vs AUTHORITY',
+        pattern: 'Attended meeting/call → deferred strategy work',
+        performed: 'You're optimizing for <strong>being in the room</strong> (availability, consensus-building)',
+        neglected: 'You're deferring <strong>big-picture thinking</strong> (strategy, direction-setting)',
+        favor: 'availability over authority'
+      },
+      'meetings-deep_work': {
+        pair: 'AVAILABILITY vs AUTHORITY',
+        pattern: 'Attended meeting/call → deferred deep work',
+        performed: 'You're optimizing for <strong>being present</strong> (calendar full of meetings)',
+        neglected: 'You're deferring <strong>focused execution</strong> (deep work, build time)',
+        favor: 'availability over authority'
+      },
+      // QUALITY GATE vs EXECUTION
+      'reviewing-shipping': {
+        pair: 'QUALITY GATE vs EXECUTION',
+        pattern: 'Reviewed/approved work → deferred your own shipping',
+        performed: 'You're optimizing for <strong>quality control</strong> (being the final check)',
+        neglected: 'You're deferring <strong>your own output</strong> (shipping, finishing your work)',
+        favor: 'gatekeeping over execution'
+      },
+      'reviewing-deep_work': {
+        pair: 'QUALITY GATE vs EXECUTION',
+        pattern: 'Reviewed/approved work → deferred deep work',
+        performed: 'You're optimizing for <strong>review cycles</strong> (checking everyone else's work)',
+        neglected: 'You're deferring <strong>your own focused work</strong> (deep work, execution)',
+        favor: 'gatekeeping over execution'
+      },
+      // PLANNING vs EXECUTION
+      'planning-shipping': {
+        pair: 'PLANNING vs EXECUTION',
+        pattern: 'Planned/strategized → deferred shipping',
+        performed: 'You're optimizing for <strong>keeping options open</strong> (planning, strategizing)',
+        neglected: 'You're deferring <strong>closure</strong> (shipping, finishing things)',
+        favor: 'optionality over execution'
+      },
+      'planning-deep_work': {
+        pair: 'PLANNING vs EXECUTION',
+        pattern: 'Planned/strategized → deferred deep work',
+        performed: 'You're optimizing for <strong>exploration</strong> (planning, thinking about the work)',
+        neglected: 'You're deferring <strong>doing the work</strong> (focused execution)',
+        favor: 'planning over execution'
+      },
+      // GROWTH vs CAPACITY
+      'meetings-learning': {
+        pair: 'GROWTH vs CAPACITY',
+        pattern: 'Attended meetings → deferred learning/skill-building',
+        performed: 'You're optimizing for <strong>scaling headcount</strong> (coordination overhead)',
+        neglected: 'You're deferring <strong>your own edge</strong> (learning, skill-building)',
+        favor: 'growth over capacity'
+      },
+      'reviewing-learning': {
+        pair: 'GROWTH vs CAPACITY',
+        pattern: 'Reviewed work → deferred learning/skill-building',
+        performed: 'You're optimizing for <strong>team output</strong> (managing others)',
+        neglected: 'You're deferring <strong>your own development</strong> (learning, upskilling)',
+        favor: 'growth over capacity'
+      },
+      // FALLBACK (catch-all)
+      'fallback': {
+        pair: 'SYSTEM OVERLOAD',
+        pattern: 'Your alarm pattern suggests constraint violation',
+        performed: 'You're optimizing for <strong>too many concurrent lanes</strong> (WIP>capacity)',
+        neglected: 'You're deferring <strong>constraint enforcement</strong> (kill-list, WIP=2)',
+        favor: 'keeping options warm'
+      }
+    };
+
+    // Elements
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const optionCards = document.querySelectorAll('.option-card');
+
+    // Handle option selection
+    optionCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const question = card.dataset.q;
+        const value = card.dataset.value;
+        
+        // Store answer
+        answers[question] = value;
+
+        // Track in GA
+        gtag('event', 'diagnostic_answer', {
+          'event_category': 'engagement',
+          'event_label': `${question}_${value}`,
+          'value': currentQuestion
+        });
+
+        // Visual feedback
+        document.querySelectorAll(`[data-q="${question}"]`).forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+
+        // Wait briefly then advance
+        setTimeout(() => {
+          advanceQuestion();
+        }, 300);
+      });
+    });
+
+    function advanceQuestion() {
+      // Hide current question
+      document.getElementById(`question${currentQuestion}`).classList.remove('active');
+
+      // Advance
+      currentQuestion++;
+
+      // Update progress
+      const progress = (currentQuestion - 1) / 3 * 100;
+      progressFill.style.width = `${progress}%`;
+
+      if (currentQuestion <= 3) {
+        // Show next question
+        progressText.textContent = `Question ${currentQuestion} of 3`;
+        document.getElementById(`question${currentQuestion}`).classList.add('active');
+      } else {
+        // Show result
+        progressText.textContent = 'Complete';
+        progressFill.style.width = '100%';
+        showResult();
+      }
+    }
+
+    function showResult() {
+      const key = `${answers.q2}-${answers.q3}`;
+      const result = conflictPairs[key] || conflictPairs['fallback'];
+
+      // Populate result
+      document.getElementById('resultPairTitle').textContent = result.pair;
+      document.getElementById('resultPattern').innerHTML = result.pattern;
+      document.getElementById('resultPerformed').innerHTML = result.performed;
+      document.getElementById('resultNeglected').innerHTML = result.neglected;
+      document.getElementById('resultFavor').textContent = result.favor;
+
+      // Track in GA
+      gtag('event', 'diagnostic_complete', {
+        'event_category': 'conversion',
+        'event_label': result.pair,
+        'value': 1
+      });
+
+      // Show result section
+      document.getElementById('resultSection').classList.add('active');
+      document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Email capture
+    document.getElementById('emailForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('emailInput').value;
+      const key = `${answers.q2}-${answers.q3}`;
+      const result = conflictPairs[key] || conflictPairs['fallback'];
+
+      try {
+        // Send to backend
+        const response = await fetch('/api/submit-diagnostic', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            answers,
+            conflictPair: result.pair,
+            timestamp: new Date().toISOString()
+          })
+        });
+
+        if (response.ok) {
+          // Track in GA
+          gtag('event', 'diagnostic_email_capture', {
+            'event_category': 'conversion',
+            'event_label': result.pair,
+            'value': 1
+          });
+
+          // Show success
+          document.getElementById('emailSuccess').classList.add('show');
+          document.getElementById('emailForm').style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+      }
+    });
+
+    // Restart
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      // Reset state
+      answers.q1 = null;
+      answers.q2 = null;
+      answers.q3 = null;
+      currentQuestion = 1;
+
+      // Reset UI
+      optionCards.forEach(card => card.classList.remove('selected'));
+      document.querySelectorAll('.question-section').forEach(q => q.classList.remove('active'));
+      document.getElementById('question1').classList.add('active');
+      document.getElementById('resultSection').classList.remove('active');
+      
+      progressFill.style.width = '0%';
+      progressText.textContent = 'Question 1 of 3';
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Track in GA
+      gtag('event', 'diagnostic_restart', {
+        'event_category': 'engagement',
+        'value': 1
+      });
+    });
+  </script>
+</body>
+</html>
