@@ -8,11 +8,106 @@
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QEWYMTSMJQ"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-QEWYMTSMJQ');
-  </script>
+document.addEventListener('DOMContentLoaded', () => {
+  // State
+  const answers = { q1: null, q2: null, q3: null };
+  let currentQuestion = 1;
+
+  // Elements
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+
+  // Guaranteed binding via delegation (works even if nodes are re-rendered)
+  document.body.addEventListener('click', (e) => {
+    const card = e.target.closest('.option-card');
+    if (!card) return;
+
+    const question = card.dataset.q;
+    const value = card.dataset.value;
+    if (!question || !value) return;
+
+    answers[question] = value;
+
+    document.querySelectorAll(`[data-q="${question}"]`)
+      .forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+
+    setTimeout(advanceQuestion, 300);
+  });
+
+  function advanceQuestion() {
+    document.getElementById(`question${currentQuestion}`)?.classList.remove('active');
+    currentQuestion++;
+    const progress = ((currentQuestion - 1) / 3) * 100;
+    progressFill.style.width = `${progress}%`;
+
+    if (currentQuestion <= 3) {
+      progressText.textContent = `Question ${currentQuestion} of 3`;
+      document.getElementById(`question${currentQuestion}`)?.classList.add('active');
+    } else {
+      progressText.textContent = 'Complete';
+      progressFill.style.width = '100%';
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const conflictPairs = window.conflictPairs; // keep your existing object on window
+    const key = `${answers.q2}-${answers.q3}`;
+    const result = (conflictPairs && conflictPairs[key]) || (conflictPairs && conflictPairs['fallback']);
+    if (!result) return;
+
+    document.getElementById('resultPairTitle').textContent = result.pair;
+    document.getElementById('resultPattern').innerHTML = result.pattern;
+    document.getElementById('resultPerformed').innerHTML = result.performed;
+    document.getElementById('resultNeglected').innerHTML = result.neglected;
+    document.getElementById('resultFavor').textContent = result.favor;
+
+    document.getElementById('resultSection').classList.add('active');
+    document.getElementById('questionsContainer').style.display = 'none';
+    document.getElementById('resultContainer').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Email form
+  document.getElementById('emailForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value.trim();
+    const key = `${answers.q2}-${answers.q3}`;
+    const result = window.conflictPairs[key] || window.conflictPairs['fallback'];
+
+    const r = await fetch('/api/submit-diagnostic', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        answers,
+        conflictPair: result.pair,
+        timestamp: new Date().toISOString()
+      })
+    });
+
+    if (!r.ok) return alert('Submit failed. Try again.');
+
+    document.getElementById('emailSuccess').classList.add('show');
+    document.getElementById('emailForm').style.display = 'none';
+  });
+
+  // Restart
+  document.getElementById('restartBtn').addEventListener('click', () => {
+    answers.q1 = answers.q2 = answers.q3 = null;
+    currentQuestion = 1;
+    document.querySelectorAll('.question-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('questionsContainer').style.display = '';
+    document.getElementById('resultContainer').style.display = 'none';
+    document.getElementById('question1').classList.add('active');
+    progressFill.style.width = '0%';
+    progressText.textContent = 'Question 1 of 3';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+
   
   <meta name="theme-color" content="#0B0B0C">
   <meta name="description" content="Discover your constraint pattern in 3 minutes. Take the free conflict pair diagnostic.">
