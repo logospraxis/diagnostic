@@ -515,6 +515,7 @@
     };
 
     let currentQuestion = 1;
+    const totalQuestions = 3;
 
     // Conflict Pair Logic with Full Mechanism
     const conflictPairs = {
@@ -523,8 +524,8 @@
         pair: 'VISIBILITY vs OWNERSHIP',
         pattern: 'Responded to Slack/messages → deferred deep work',
         mechanism: 'Your system rewards responsiveness with <strong>immediate social proof</strong> (Slack replies, gratitude, visibility). Deep work has no immediate signal—just silence. So your operating system learns: <strong>Slack = dopamine, deep work = nothing.</strong>',
-        loop: 'Every time you respond quickly, you get validation. Every time you defer deep work, nothing happens today. The alarm fires when deferred work compounds and deadline pressure hits. But by then, you're already behind.',
-        cost: 'You're sacrificing <strong>ownership for visibility</strong>. Your technical edge erodes. Your calendar owns you. You're always responsive, never building. You're performing productivity instead of producing output.',
+        loop: 'Every time you respond quickly, you get validation. Every time you defer deep work, nothing happens today. The alarm fires when deferred work compounds and deadline pressure hits. But by then, you\'re already behind.',
+        cost: 'You\'re sacrificing <strong>ownership for visibility</strong>. Your technical edge erodes. Your calendar owns you. You\'re always responsive, never building. You\'re performing productivity instead of producing output.',
         fix: '<strong>WIP=2 breaks this.</strong> One lane ships (deep work), one waits (maintenance). Slack gets 2 blocks/day max. Deep work gets 3 blocks/day, same time, Mon-Fri. Your system now rewards finishing over responding.',
         favor: 'visibility over ownership'
       },
@@ -532,27 +533,27 @@
         pair: 'VISIBILITY vs OWNERSHIP',
         pattern: 'Responded to Slack/messages → deferred shipping',
         mechanism: 'Your system rewards <strong>performing responsiveness</strong> (instant replies, being "helpful") while shipping has delayed feedback. Messages give you immediate validation. Finishing things takes weeks to get recognized.',
-        loop: 'Every unfinished project stays warm. Every Slack thread gives instant gratification. The alarm fires when you realize you haven't shipped anything in months—but you've been "busy" the whole time.',
-        cost: 'You're trading <strong>completion for availability</strong>. Nothing ever closes. Your portfolio is full of 80% done projects. You're known for being responsive, not for shipping.',
+        loop: 'Every unfinished project stays warm. Every Slack thread gives instant gratification. The alarm fires when you realize you haven\'t shipped anything in months—but you\'ve been "busy" the whole time.',
+        cost: 'You\'re trading <strong>completion for availability</strong>. Nothing ever closes. Your portfolio is full of 80% done projects. You\'re known for being responsive, not for shipping.',
         fix: '<strong>WIP=2 + kill-list.</strong> Two projects max: one live (shipping), one maintenance (support). Everything else gets a forcing function: ship by Friday or kill it. Slack goes to 2 blocks/day. Shipping gets priority blocks.',
         favor: 'visibility over ownership'
       },
       'switching-deep_work': {
         pair: 'RESPONSIVENESS vs FOCUS',
         pattern: 'Context-switched between tasks → deferred deep work',
-        performed: 'You're optimizing for <strong>keeping all options warm</strong> (reactive availability)',
+        performed: 'You\'re optimizing for <strong>keeping all options warm</strong> (reactive availability)',
         mechanism: 'Your system is designed for <strong>reactive availability</strong>—every task feels urgent, so you keep switching. But deep work requires sustained focus. Each context switch costs 15-30 minutes of cognitive reload time.',
         loop: 'You start deep work → get interrupted → switch tasks → feel productive (motion ≠ progress) → repeat. The alarm fires when you realize you spent 8 hours switching but completed nothing that required focus.',
-        cost: 'You're sacrificing <strong>depth for breadth</strong>. You touch everything, finish nothing. Your best work—the stuff that requires uninterrupted thought—never happens. You're always in motion, never in momentum.',
+        cost: 'You\'re sacrificing <strong>depth for breadth</strong>. You touch everything, finish nothing. Your best work—the stuff that requires uninterrupted thought—never happens. You\'re always in motion, never in momentum.',
         fix: '<strong>Whitelist-only execution blocks.</strong> 50-min deep work sessions, same time daily. Phone off. Slack closed. Calendar blocked. Only pre-approved interruptions (emergency = revenue loss >$10K). Everything else waits.',
         favor: 'responsiveness over focus'
       },
       'switching-shipping': {
         pair: 'RESPONSIVENESS vs FOCUS',
         pattern: 'Context-switched between tasks → deferred shipping',
-        mechanism: 'Your system treats <strong>all motion as progress</strong>. Switching between tasks feels productive because you're "doing things." But shipping requires closing loops, which means saying no to everything else.',
-        loop: 'You juggle 8 projects → make progress on all → finish none → feel busy but unproductive. The alarm fires when stakeholders ask "where's the deliverable?" and you realize you've been working on everything except the thing that ships.',
-        cost: 'You're trading <strong>completion for activity</strong>. Your velocity looks high (lots of tasks started) but throughput is zero (nothing finished). You're stuck in permanent draft mode.',
+        mechanism: 'Your system treats <strong>all motion as progress</strong>. Switching between tasks feels productive because you\'re "doing things." But shipping requires closing loops, which means saying no to everything else.',
+        loop: 'You juggle 8 projects → make progress on all → finish none → feel busy but unproductive. The alarm fires when stakeholders ask "where\'s the deliverable?" and you realize you\'ve been working on everything except the thing that ships.',
+        cost: 'You\'re trading <strong>completion for activity</strong>. Your velocity looks high (lots of tasks started) but throughput is zero (nothing finished). You\'re stuck in permanent draft mode.',
         fix: '<strong>WIP=1 for shipping.</strong> One project ships this week. Everything else is maintenance or killed. No new work until current work ships. Binary decisions: done or not done. No "90% complete."',
         favor: 'responsiveness over focus'
       },
@@ -561,8 +562,8 @@
         pair: 'AVAILABILITY vs AUTHORITY',
         pattern: 'Attended meeting/call → deferred decision-making',
         mechanism: 'Your system optimizes for <strong>consensus over clarity</strong>. Meetings give you the illusion of progress (we talked about it!) without forcing decisions. Decision-making means killing options—meetings keep options alive.',
-        loop: 'You attend meeting → discuss → defer decision → schedule follow-up → repeat. The alarm fires when you realize you've had 6 meetings about the same thing and still haven't decided.',
-        cost: 'You're sacrificing <strong>authority for availability</strong>. Your team is stuck waiting for direction. Velocity drops because no one knows what's prioritized. You're in every conversation but making no calls.',
+        loop: 'You attend meeting → discuss → defer decision → schedule follow-up → repeat. The alarm fires when you realize you\'ve had 6 meetings about the same thing and still haven\'t decided.',
+        cost: 'You\'re sacrificing <strong>authority for availability</strong>. Your team is stuck waiting for direction. Velocity drops because no one knows what\'s prioritized. You\'re in every conversation but making no calls.',
         fix: '<strong>Decision sprints.</strong> Block 2 hours/week: no meetings, only decisions. Every option gets a forcing function: decide by Friday or kill it. Meetings require pre-work: "What decision are we making?" No decision = no meeting.',
         favor: 'availability over authority'
       },
@@ -570,9 +571,9 @@
         pair: 'AVAILABILITY vs AUTHORITY',
         pattern: 'Attended meeting/call → deferred strategy work',
         mechanism: 'Your system rewards <strong>being in the room</strong> (availability) over thinking deeply about direction. Meetings are immediate and social. Strategy work is solitary and has no instant feedback.',
-        loop: 'Your calendar fills with meetings → strategy work gets pushed to "later" → you're always reacting, never leading. The alarm fires when you realize you've been fighting fires instead of setting direction.',
-        cost: 'You're trading <strong>leadership for presence</strong>. Your team is executing tactically with no strategic vision. You're managing the present instead of designing the future.',
-        fix: '<strong>Strategy blocks: non-negotiable.</strong> 3 hours/week, same time, no meetings. Output: one decision memo per week. If it's not in the memo, it's not strategy. Meetings become input to strategy, not replacement for it.',
+        loop: 'Your calendar fills with meetings → strategy work gets pushed to "later" → you\'re always reacting, never leading. The alarm fires when you realize you\'ve been fighting fires instead of setting direction.',
+        cost: 'You\'re trading <strong>leadership for presence</strong>. Your team is executing tactically with no strategic vision. You\'re managing the present instead of designing the future.',
+        fix: '<strong>Strategy blocks: non-negotiable.</strong> 3 hours/week, same time, no meetings. Output: one decision memo per week. If it\'s not in the memo, it\'s not strategy. Meetings become input to strategy, not replacement for it.',
         favor: 'availability over authority'
       },
       'meetings-deep_work': {
@@ -580,7 +581,7 @@
         pattern: 'Attended meeting/call → deferred deep work',
         mechanism: 'Your system prioritizes <strong>coordination over creation</strong>. Every meeting fragments your day. Deep work requires 2-4 hour blocks. Your calendar has no blocks—just gaps between meetings.',
         loop: 'You accept meeting invite → deep work gets bumped → calendar fills → you work nights/weekends to catch up. The alarm fires when you realize your best thinking happens outside work hours because your calendar is owned by others.',
-        cost: 'You're sacrificing <strong>output for input</strong>. You spend all day coordinating, none creating. Your deliverables are always late because you have no time to actually do the work.',
+        cost: 'You\'re sacrificing <strong>output for input</strong>. You spend all day coordinating, none creating. Your deliverables are always late because you have no time to actually do the work.',
         fix: '<strong>Calendar proof: 5 same-time blocks, Mon-Fri.</strong> These are non-negotiable deep work slots. Meetings book around them, not through them. If someone needs you during deep work, they reschedule.',
         favor: 'availability over authority'
       },
@@ -588,18 +589,18 @@
       'reviewing-shipping': {
         pair: 'QUALITY GATE vs EXECUTION',
         pattern: 'Reviewed/approved work → deferred your own shipping',
-        mechanism: 'Your system makes you the <strong>bottleneck by design</strong>. You're the final check for everyone's work, so your own work waits. Reviewing feels productive (you're helping!), but your projects never close.',
+        mechanism: 'Your system makes you the <strong>bottleneck by design</strong>. You\'re the final check for everyone\'s work, so your own work waits. Reviewing feels productive (you\'re helping!), but your projects never close.',
         loop: 'Team ships work to you → you review → your work gets pushed → you become the constraint. The alarm fires when you realize your team is waiting on your review, and your stakeholders are waiting on your delivery.',
-        cost: 'You're trading <strong>your output for gatekeeping</strong>. Your team is productive. You're not. You're managing quality but producing nothing. Your role becomes "reviewer" instead of "builder."',
-        fix: '<strong>Review windows: 2 blocks/week max.</strong> Everything else waits or ships without you. Teach your team to ship without approval. Your job is to build, not to check. If you're the bottleneck, you're the problem.',
+        cost: 'You\'re trading <strong>your output for gatekeeping</strong>. Your team is productive. You\'re not. You\'re managing quality but producing nothing. Your role becomes "reviewer" instead of "builder."',
+        fix: '<strong>Review windows: 2 blocks/week max.</strong> Everything else waits or ships without you. Teach your team to ship without approval. Your job is to build, not to check. If you\'re the bottleneck, you\'re the problem.',
         favor: 'gatekeeping over execution'
       },
       'reviewing-deep_work': {
         pair: 'QUALITY GATE vs EXECUTION',
         pattern: 'Reviewed/approved work → deferred deep work',
-        mechanism: 'Your system treats <strong>review as higher priority than creation</strong>. Reviewing is reactive (someone needs you now!). Deep work is proactive (no one's waiting). So review always wins.',
-        loop: 'Review requests pile up → you clear the queue → your deep work slides → repeat. The alarm fires when you realize you haven't done focused work in weeks—you've only reacted to others.',
-        cost: 'You're sacrificing <strong>your edge for quality control</strong>. Your skills atrophy. Your team depends on you to check their work instead of learning to ship independently. You're managing, not making.',
+        mechanism: 'Your system treats <strong>review as higher priority than creation</strong>. Reviewing is reactive (someone needs you now!). Deep work is proactive (no one\'s waiting). So review always wins.',
+        loop: 'Review requests pile up → you clear the queue → your deep work slides → repeat. The alarm fires when you realize you haven\'t done focused work in weeks—you\'ve only reacted to others.',
+        cost: 'You\'re sacrificing <strong>your edge for quality control</strong>. Your skills atrophy. Your team depends on you to check their work instead of learning to ship independently. You\'re managing, not making.',
         fix: '<strong>Async review only.</strong> No same-day reviews. All reviews happen in dedicated 2-hour blocks, twice a week. Team learns to ship without immediate feedback. Your deep work gets protected.',
         favor: 'gatekeeping over execution'
       },
@@ -607,18 +608,18 @@
       'planning-shipping': {
         pair: 'PLANNING vs EXECUTION',
         pattern: 'Planned/strategized → deferred shipping',
-        mechanism: 'Your system rewards <strong>keeping options open</strong> (planning feels safe) over closing loops (shipping feels risky). Planning never ends—there's always more to consider. Shipping forces commitment.',
-        loop: 'You plan → find new consideration → revise plan → defer shipping → repeat. The alarm fires when you realize you've spent 3 months planning something that should've shipped in 3 weeks.',
-        cost: 'You're trading <strong>execution for optionality</strong>. Nothing ships because you're always "refining the strategy." Your team is stuck waiting for green light. Competitors ship while you plan.',
+        mechanism: 'Your system rewards <strong>keeping options open</strong> (planning feels safe) over closing loops (shipping feels risky). Planning never ends—there\'s always more to consider. Shipping forces commitment.',
+        loop: 'You plan → find new consideration → revise plan → defer shipping → repeat. The alarm fires when you realize you\'ve spent 3 months planning something that should\'ve shipped in 3 weeks.',
+        cost: 'You\'re trading <strong>execution for optionality</strong>. Nothing ships because you\'re always "refining the strategy." Your team is stuck waiting for green light. Competitors ship while you plan.',
         fix: '<strong>Forcing functions: ship by Friday or kill it.</strong> Planning gets 1 week max. After that, execution or death. No permanent planning mode. Test with market, not more planning.',
         favor: 'optionality over execution'
       },
       'planning-deep_work': {
         pair: 'PLANNING vs EXECUTION',
         pattern: 'Planned/strategized → deferred deep work',
-        mechanism: 'Your system confuses <strong>thinking about work with doing work</strong>. Planning feels productive (you're making progress!) but deep work is where value compounds. Planning is finite. Execution is where you learn.',
+        mechanism: 'Your system confuses <strong>thinking about work with doing work</strong>. Planning feels productive (you\'re making progress!) but deep work is where value compounds. Planning is finite. Execution is where you learn.',
         loop: 'You strategize → feel productive → defer execution → realize nothing moved. The alarm fires when stakeholders ask "what shipped?" and you have 10 strategy docs but zero deliverables.',
-        cost: 'You're sacrificing <strong>building for planning</strong>. You're over-indexed on strategy, under-indexed on execution. Your ideas are great. Your output is zero.',
+        cost: 'You\'re sacrificing <strong>building for planning</strong>. You\'re over-indexed on strategy, under-indexed on execution. Your ideas are great. Your output is zero.',
         fix: '<strong>1:3 ratio: planning to execution.</strong> For every 1 hour of planning, 3 hours of deep work execution. Plans get tested with real work, not more planning. Ship to learn, not plan to learn.',
         favor: 'planning over execution'
       },
@@ -627,18 +628,18 @@
         pair: 'GROWTH vs CAPACITY',
         pattern: 'Attended meetings → deferred learning/skill-building',
         mechanism: 'Your system optimizes for <strong>scaling the team</strong> (meetings, coordination) over scaling yourself (learning, upskilling). Growth creates coordination overhead. Your time gets consumed managing people, not improving yourself.',
-        loop: 'Team grows → meetings multiply → learning gets pushed → your edge dulls. The alarm fires when you realize you haven't learned anything new in 6 months because you're too busy managing.',
-        cost: 'You're sacrificing <strong>your capacity for company growth</strong>. Team gets better. You stagnate. Eventually you become the constraint because you stopped investing in your own skills.',
-        fix: '<strong>Non-negotiable learning blocks: 3 hours/week.</strong> These are CEO time—untouchable. Read, code, experiment, upskill. If you're not growing, you're the ceiling.',
+        loop: 'Team grows → meetings multiply → learning gets pushed → your edge dulls. The alarm fires when you realize you haven\'t learned anything new in 6 months because you\'re too busy managing.',
+        cost: 'You\'re sacrificing <strong>your capacity for company growth</strong>. Team gets better. You stagnate. Eventually you become the constraint because you stopped investing in your own skills.',
+        fix: '<strong>Non-negotiable learning blocks: 3 hours/week.</strong> These are CEO time—untouchable. Read, code, experiment, upskill. If you\'re not growing, you\'re the ceiling.',
         favor: 'growth over capacity'
       },
       'reviewing-learning': {
         pair: 'GROWTH vs CAPACITY',
         pattern: 'Reviewed work → deferred learning/skill-building',
-        mechanism: 'Your system prioritizes <strong>team output over your development</strong>. Reviewing their work feels urgent. Your learning feels optional. But if you don't grow, you cap the team's potential.',
-        loop: 'You review their work → your learning waits → your skills plateau → you can't lead them into new territory. The alarm fires when you realize you're managing yesterday's skills, not building tomorrow's.',
-        cost: 'You're trading <strong>your edge for management</strong>. You're a better manager. You're a worse builder. Eventually the team outgrows you.',
-        fix: '<strong>Learning is non-negotiable.</strong> 3 hours/week, same as execution time. You can't lead into domains you don't understand. Stop reviewing. Start building.',
+        mechanism: 'Your system prioritizes <strong>team output over your development</strong>. Reviewing their work feels urgent. Your learning feels optional. But if you don\'t grow, you cap the team\'s potential.',
+        loop: 'You review their work → your learning waits → your skills plateau → you can\'t lead them into new territory. The alarm fires when you realize you\'re managing yesterday\'s skills, not building tomorrow\'s.',
+        cost: 'You\'re trading <strong>your edge for management</strong>. You\'re a better manager. You\'re a worse builder. Eventually the team outgrows you.',
+        fix: '<strong>Learning is non-negotiable.</strong> 3 hours/week, same as execution time. You can\'t lead into domains you don\'t understand. Stop reviewing. Start building.',
         favor: 'growth over capacity'
       },
       // FALLBACK (catch-all)
@@ -646,8 +647,8 @@
         pair: 'SYSTEM OVERLOAD',
         pattern: 'Constraint violation detected',
         mechanism: 'Your system is running <strong>WIP>capacity</strong>—too many concurrent lanes. Every task feels urgent. Nothing has forcing functions. Your operating system has no exit condition.',
-        loop: 'You start new work → old work stays warm → WIP grows → cognitive load spikes. The alarm fires when you realize you're working 60 hours but shipping nothing.',
-        cost: 'You're sacrificing <strong>throughput for motion</strong>. High activity, zero velocity. You're busy, not productive.',
+        loop: 'You start new work → old work stays warm → WIP grows → cognitive load spikes. The alarm fires when you realize you\'re working 60 hours but shipping nothing.',
+        cost: 'You\'re sacrificing <strong>throughput for motion</strong>. High activity, zero velocity. You\'re busy, not productive.',
         fix: '<strong>WIP=2. Kill everything else.</strong> Two lanes: one ships, one waits. No new work until current work closes. Constraint architecture over willpower.',
         favor: 'keeping options warm over finishing'
       }
@@ -656,15 +657,18 @@
     // Elements
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
-    const optionCards = document.querySelectorAll('.option-card');
 
-    // Handle option selection
-    optionCards.forEach(card => {
-      card.addEventListener('click', () => {
+    // Initialize the first question
+    showQuestion(1);
+
+    // Handle option selection using event delegation
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('option-card')) {
+        const card = e.target;
         const question = card.dataset.q;
         const value = card.dataset.value;
         
-        console.log('Card clicked:', question, value); // Debug log
+        console.log('Card clicked:', question, value);
         
         // Store answer
         answers[question] = value;
@@ -690,26 +694,37 @@
         setTimeout(() => {
           advanceQuestion();
         }, 300);
-      });
+      }
     });
 
-    function advanceQuestion() {
-      // Hide current question
-      document.getElementById(`question${currentQuestion}`).classList.remove('active');
-
-      // Advance
-      currentQuestion++;
-
+    function showQuestion(questionNum) {
+      // Hide all questions
+      document.querySelectorAll('.question-section').forEach(q => {
+        q.classList.remove('active');
+      });
+      
+      // Show the specified question
+      document.getElementById(`question${questionNum}`).classList.add('active');
+      
       // Update progress
-      const progress = (currentQuestion - 1) / 3 * 100;
+      const progress = ((questionNum - 1) / totalQuestions) * 100;
       progressFill.style.width = `${progress}%`;
+      progressText.textContent = `Question ${questionNum} of ${totalQuestions}`;
+    }
 
-      if (currentQuestion <= 3) {
-        // Show next question
-        progressText.textContent = `Question ${currentQuestion} of 3`;
-        document.getElementById(`question${currentQuestion}`).classList.add('active');
+    function advanceQuestion() {
+      // Check if we have an answer for the current question
+      if (!answers[`q${currentQuestion}`]) {
+        console.log('No answer selected for current question');
+        return;
+      }
+
+      // Move to next question or show results
+      if (currentQuestion < totalQuestions) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
       } else {
-        // Show result
+        // All questions answered, show results
         progressText.textContent = 'Complete';
         progressFill.style.width = '100%';
         showResult();
@@ -720,7 +735,7 @@
       const key = `${answers.q2}-${answers.q3}`;
       const result = conflictPairs[key] || conflictPairs['fallback'];
 
-      console.log('Showing result for:', key, result.pair); // Debug log
+      console.log('Showing result for:', key, result.pair);
 
       // Populate result
       document.getElementById('resultPairTitle').textContent = result.pair;
@@ -744,8 +759,13 @@
         console.log('GA tracking failed:', e);
       }
 
-      // Show result section
+      // Hide all questions and show result section
+      document.querySelectorAll('.question-section').forEach(q => {
+        q.classList.remove('active');
+      });
       document.getElementById('resultSection').classList.add('active');
+      
+      // Scroll to result section
       document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
@@ -803,13 +823,11 @@
       currentQuestion = 1;
 
       // Reset UI
-      optionCards.forEach(card => card.classList.remove('selected'));
-      document.querySelectorAll('.question-section').forEach(q => q.classList.remove('active'));
-      document.getElementById('question1').classList.add('active');
+      document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
       document.getElementById('resultSection').classList.remove('active');
       
-      progressFill.style.width = '0%';
-      progressText.textContent = 'Question 1 of 3';
+      // Show first question
+      showQuestion(1);
 
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
