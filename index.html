@@ -664,15 +664,23 @@
         const question = card.dataset.q;
         const value = card.dataset.value;
         
+        console.log('Card clicked:', question, value); // Debug log
+        
         // Store answer
         answers[question] = value;
 
-        // Track in GA
-        gtag('event', 'diagnostic_answer', {
-          'event_category': 'engagement',
-          'event_label': `${question}_${value}`,
-          'value': currentQuestion
-        });
+        // Track in GA (with fallback)
+        try {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'diagnostic_answer', {
+              'event_category': 'engagement',
+              'event_label': `${question}_${value}`,
+              'value': currentQuestion
+            });
+          }
+        } catch (e) {
+          console.log('GA tracking failed:', e);
+        }
 
         // Visual feedback
         document.querySelectorAll(`[data-q="${question}"]`).forEach(c => c.classList.remove('selected'));
@@ -712,6 +720,8 @@
       const key = `${answers.q2}-${answers.q3}`;
       const result = conflictPairs[key] || conflictPairs['fallback'];
 
+      console.log('Showing result for:', key, result.pair); // Debug log
+
       // Populate result
       document.getElementById('resultPairTitle').textContent = result.pair;
       document.getElementById('resultPattern').innerHTML = result.pattern;
@@ -721,12 +731,18 @@
       document.getElementById('resultFix').innerHTML = result.fix;
       document.getElementById('resultHighlight').innerHTML = `<strong>Your system is designed to favor ${result.favor}.</strong> That's why the alarm keeps firing. No amount of discipline fixes architectural problems.`;
 
-      // Track in GA
-      gtag('event', 'diagnostic_complete', {
-        'event_category': 'conversion',
-        'event_label': result.pair,
-        'value': 1
-      });
+      // Track in GA (with fallback)
+      try {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'diagnostic_complete', {
+            'event_category': 'conversion',
+            'event_label': result.pair,
+            'value': 1
+          });
+        }
+      } catch (e) {
+        console.log('GA tracking failed:', e);
+      }
 
       // Show result section
       document.getElementById('resultSection').classList.add('active');
@@ -755,12 +771,18 @@
         });
 
         if (response.ok) {
-          // Track in GA
-          gtag('event', 'diagnostic_email_capture', {
-            'event_category': 'conversion',
-            'event_label': result.pair,
-            'value': 1
-          });
+          // Track in GA (with fallback)
+          try {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'diagnostic_email_capture', {
+                'event_category': 'conversion',
+                'event_label': result.pair,
+                'value': 1
+              });
+            }
+          } catch (e) {
+            console.log('GA tracking failed:', e);
+          }
 
           // Show success
           document.getElementById('emailSuccess').classList.add('show');
@@ -792,11 +814,17 @@
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Track in GA
-      gtag('event', 'diagnostic_restart', {
-        'event_category': 'engagement',
-        'value': 1
-      });
+      // Track in GA (with fallback)
+      try {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'diagnostic_restart', {
+            'event_category': 'engagement',
+            'value': 1
+          });
+        }
+      } catch (e) {
+        console.log('GA tracking failed:', e);
+      }
     });
   </script>
 </body>
